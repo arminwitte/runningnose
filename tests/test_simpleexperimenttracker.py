@@ -2,4 +2,4 @@ from simpleexperimenttracker.simpleexperimenttracker import SimpleExperimentTrac
 
 def test_simpleexperimenttracker():
     tracker = SimpleExperimentTracker()
-    assert isinstance(tracker, sit.SimpleExperimentTracker)
+    assert isinstance(tracker, SimpleExperimentTracker)
