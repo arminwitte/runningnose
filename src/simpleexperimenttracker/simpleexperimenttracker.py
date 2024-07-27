@@ -11,8 +11,9 @@ class SimpleExperimentTracker:
         date = now.split("T")[0]
 
         r = wonderwords.RandomWord()
-        adjective = r.word(include_parts_of_speech=["adjectives"])
-
-        # generate a random word between the length of 3 and 8 characters
-        r.word(word_min_length=3, word_max_length=8)
+        adjective = r.word(include_parts_of_speech=["adjectives"], word_min_length=3, word_max_length=8)
+        length = 12 - len(adjective)
+        noun = r.word(include_parts_of_speech=["nouns"], word_min_length=length, word_max_length=length)
+        name = "_".join((date, adjective, noun))
+        return name
         
