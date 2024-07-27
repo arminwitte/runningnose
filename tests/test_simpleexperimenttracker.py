@@ -3,3 +3,5 @@ from simpleexperimenttracker.simpleexperimenttracker import SimpleExperimentTrac
 def test_simpleexperimenttracker():
     tracker = SimpleExperimentTracker()
     assert isinstance(tracker, SimpleExperimentTracker)
+    assert isinstance(tracker.job_name, str)
+    assert len(tracker.job_name) == 24
