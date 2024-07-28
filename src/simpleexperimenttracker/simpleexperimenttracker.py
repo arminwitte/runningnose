@@ -1,6 +1,7 @@
 import wonderwords
 import datetime
 import random
+import string
 
 FAMOUS_SCIENTISTS = [
     # Female Scientists
