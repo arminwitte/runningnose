@@ -61,6 +61,8 @@ class SimpleExperimentTracker:
             root_dir = os.getcwd()
         self.root_dir = root_dir
 
+        self._dict = {}
+
         if experiment_name is not None:
             self.set_experiment(experiment_name)
         else:
