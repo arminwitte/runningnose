@@ -101,7 +101,7 @@ class SimpleExperimentTracker:
         path = os.path.join(self.root_dir, self.experiment_name, name)
         if not os.path.isdir(path):
             os.makedirs(path)
-        self.experiment_name = name
+        self.job_name = name
         self.init_dict()
 
         pass
@@ -113,7 +113,8 @@ class SimpleExperimentTracker:
         name = SimpleExperimentTracker._printable(name)
         return name
 
-    def _job_name(self, name=None):
+    @staticmethod
+    def _job_name(name):
         if name is None:
             now = str(datetime.datetime.now().isoformat())
             date = now.split("T")[0]
@@ -124,7 +125,7 @@ class SimpleExperimentTracker:
             noun = r.word(include_parts_of_speech=["nouns"], word_min_length=length, word_max_length=length)
             name = "_".join((date, adjective, noun))
 
-        name = self._printable(name)
+        name = SimpleExperimentTracker._printable(name)
         return name
         
     @staticmethod
