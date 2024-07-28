@@ -2,6 +2,8 @@ import wonderwords
 import datetime
 import random
 import string
+import os
+
 
 FAMOUS_SCIENTISTS = [
     # Female Scientists
@@ -54,9 +56,31 @@ FAMOUS_SCIENTISTS = [
 ]
 
 class SimpleExperimentTracker:
-    def __init__(self, experiment_name=None, job_name=None):
-        self.job_name = self._job_name(job_name)
+    def __init__(self, root_dir=None, experiment_name=None, job_name=None):
+        if root_dir is None:
+            root_dir = os.getcwd()
+        self.root_dir = root_dir
+        
+        self.job_name = 3
         self.experiment_name = None
+
+    def set_experiment(self, name=None):
+        name = self._experiment_name(name)
+        path = os.path.join(self.root_dir, name)
+        if not os.path.isdir(path):
+            os.makedirs(path)
+        self.experiment_name = name
+        
+    def set_job(self, name=None):
+        if self.experiment_name is None:
+            raise ValueError("set experiment first")
+        name = self._job_name(name)    
+        path = os.path.join(self.root_dir, self.experiment_name, name)
+        if not os.path.isdir(path):
+            os.makedirs(path)
+        self.experiment_name = name
+
+        pass
 
     @staticmethod
     def _experiment_name(name):
