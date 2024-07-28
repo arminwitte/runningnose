@@ -78,7 +78,7 @@ class SimpleExperimentTracker:
         
 
     def __setitem__(self, key, value):
-      seself._dict[key] = value
+        self._dict[key] = value
 
     def __getitem__(self, key):
         return os.abspath(os.path.join(self.root_dir, self.experiment_name, self.job_name, self._dict[key]))
