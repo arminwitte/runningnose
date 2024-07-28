@@ -53,10 +53,16 @@ FAMOUS_SCIENTISTS = [
 ]
 
 class SimpleExperimentTracker:
-    def __init__(self):
-        self.job_name = self._job_name()
-        self.experiment_name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
-        pass
+    def __init__(self, experiment_name=None, job_name=None):
+        self.job_name = self._job_name(job_name)
+        self.experiment_name = None
+
+    @staticmethod
+    def _experiment_name(name):
+        if name is None:
+            name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
+        name = SimpleExperimentTracker._printable(name)
+        return name
 
     def _job_name(self, name=None):
         if name is None:
@@ -71,7 +77,8 @@ class SimpleExperimentTracker:
 
         name = self._printable(name)
         return name
+        
     @staticmethod
-    def _printable(s):
-        s_ = ''.join(s for s in myStr if s in string.printable)
+    def _printable(name_string):
+        s_ = ''.join(s for s in name_string if s in string.printable)
         return s_
