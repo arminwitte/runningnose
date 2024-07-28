@@ -1,9 +1,61 @@
 import wonderwords
 import datetime
+import random
+
+FAMOUS_SCIENTISTS = [
+    # Female Scientists
+    "Marie Curie",
+    "Rosalind Franklin",
+    "Ada Lovelace",
+    "Jane Goodall",
+    "Rachel Carson",
+    "Dorothy Hodgkin",
+    "Katherine Johnson",
+    "Barbara McClintock",
+    "Lise Meitner",
+    "Vera Rubin",
+    
+    # Male Scientists
+    "Albert Einstein",
+    "Isaac Newton",
+    "Galileo Galilei",
+    "Charles Darwin",
+    "Nikola Tesla",
+    "Stephen Hawking",
+    "Richard Feynman",
+    "Niels Bohr",
+    "Michael Faraday",
+    "Alan Turing",
+
+    # Female Scientists
+    "Hypatia",
+    "Emmy Noether",
+    "Chien-Shiung Wu",
+    "Mae Jemison",
+    "Tu Youyou",
+    "Maria Goeppert Mayer",
+    "Rita Levi-Montalcini",
+    "Gerty Cori",
+    "Mary Anning",
+    "Irène Joliot-Curie",
+    
+    # Male Scientists
+    "Gregor Mendel",
+    "James Clerk Maxwell",
+    "Louis Pasteur",
+    "Carl Linnaeus",
+    "Erwin Schrödinger",
+    "Paul Dirac",
+    "Linus Pauling",
+    "Carl Sagan",
+    "Jonas Salk",
+    "Tim Berners-Lee"
+]
 
 class SimpleExperimentTracker:
     def __init__(self):
         self.job_name = self._job_name()
+        self.experiment_name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
         pass
 
     def _job_name(self):
