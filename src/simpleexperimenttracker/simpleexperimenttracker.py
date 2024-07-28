@@ -37,14 +37,14 @@ FAMOUS_SCIENTISTS = [
     "Rita Levi-Montalcini",
     "Gerty Cori",
     "Mary Anning",
-    "Irène Joliot-Curie",
+    "Irene Joliot-Curie", #Sorry Irène, for the accent
     
     # Male Scientists
     "Gregor Mendel",
     "James Clerk Maxwell",
     "Louis Pasteur",
     "Carl Linnaeus",
-    "Erwin Schrödinger",
+    "Erwin Schroedinger", # Sorry Erwin, for the ö
     "Paul Dirac",
     "Linus Pauling",
     "Carl Sagan",
@@ -58,14 +58,20 @@ class SimpleExperimentTracker:
         self.experiment_name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
         pass
 
-    def _job_name(self):
-        now = str(datetime.datetime.now().isoformat())
-        date = now.split("T")[0]
+    def _job_name(self, name=None):
+        if name is None:
+            now = str(datetime.datetime.now().isoformat())
+            date = now.split("T")[0]
 
-        r = wonderwords.RandomWord()
-        adjective = r.word(include_parts_of_speech=["adjectives"], word_min_length=3, word_max_length=8)
-        length = 12 - len(adjective)
-        noun = r.word(include_parts_of_speech=["nouns"], word_min_length=length, word_max_length=length)
-        name = "_".join((date, adjective, noun))
+            r = wonderwords.RandomWord()
+            adjective = r.word(include_parts_of_speech=["adjectives"], word_min_length=3, word_max_length=8)
+            length = 12 - len(adjective)
+            noun = r.word(include_parts_of_speech=["nouns"], word_min_length=length, word_max_length=length)
+            name = "_".join((date, adjective, noun))
+
+        name = self._printable(name)
         return name
-        
+    @staticmethod
+    def _printable(s):
+        s_ = ''.join(s for s in myStr if s in string.printable)
+        return s_
