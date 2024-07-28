@@ -60,9 +60,29 @@ class SimpleExperimentTracker:
         if root_dir is None:
             root_dir = os.getcwd()
         self.root_dir = root_dir
+
+        if experiment_name is not None:
+            self.set_experiment(experiment_name)
+        else:
+            self.experiment_name = None
+
+        if job_name is not None:
+            self.set_job(job_name)
+        else:
+            self.job_name = None
+
+    def init_dict(self):
+        self._dict["root_dir"] = self.root_dir
+        self._dict["job_name"] = self.job_name
+        self._dict["experiment_name"] = self.experiment_name
         
-        self.job_name = 3
-        self.experiment_name = None
+
+    def __setitem__(self, key, value):
+      seself._dict[key] = value
+
+    def __getitem__(self, key):
+        return os.abspath(os.path.join(self.root_dir, self.experiment_name, self.job_name, self._dict[key]))
+        
 
     def set_experiment(self, name=None):
         name = self._experiment_name(name)
@@ -70,6 +90,7 @@ class SimpleExperimentTracker:
         if not os.path.isdir(path):
             os.makedirs(path)
         self.experiment_name = name
+        self.init_dict()
         
     def set_job(self, name=None):
         if self.experiment_name is None:
@@ -79,6 +100,7 @@ class SimpleExperimentTracker:
         if not os.path.isdir(path):
             os.makedirs(path)
         self.experiment_name = name
+        self.init_dict()
 
         pass
 
