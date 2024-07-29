@@ -73,7 +73,7 @@ class SimpleExperimentTracker:
         else:
             self.job_name = None
 
-    def init_dict(self):
+    def update_dict(self):
         self._dict["root_dir"] = self.root_dir
         self._dict["job_name"] = self.job_name
         self._dict["experiment_name"] = self.experiment_name
@@ -92,7 +92,7 @@ class SimpleExperimentTracker:
         if not os.path.isdir(path):
             os.makedirs(path)
         self.experiment_name = name
-        self.init_dict()
+        self.update_dict()
         
     def set_job(self, name=None):
         if self.experiment_name is None:
@@ -102,7 +102,7 @@ class SimpleExperimentTracker:
         if not os.path.isdir(path):
             os.makedirs(path)
         self.job_name = name
-        self.init_dict()
+        self.update_dict()
 
         pass
 
