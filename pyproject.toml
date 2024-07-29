@@ -1,5 +1,5 @@
 [project]
-name = "simpleexperimenttracker"
+name = "runningnose"
 version = "0.0.1"
 authors = [
   { name="Armi Witte", email="" },
