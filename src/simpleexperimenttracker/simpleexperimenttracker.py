@@ -1,6 +1,8 @@
 import datetime
+import json
 import os
 import random
+import shutil
 import string
 
 import wonderwords
@@ -93,18 +95,29 @@ class SimpleExperimentTracker:
             os.makedirs(path)
         self.experiment_name = name
         self.update_dict()
+        return self.experiment_name
 
-    def set_job(self, name=None):
+    def set_job(self, name=None, template=None):
         if self.experiment_name is None:
             raise ValueError("set experiment first")
         name = self._job_name(name)
         path = os.path.join(self.root_dir, self.experiment_name, name)
         if not os.path.isdir(path):
-            os.makedirs(path)
+            if template is None:
+                self._create_job(path, name)
+            else:
+                shutil.copytree(template, path, dirs_exist_ok=False)
         self.job_name = name
         self.update_dict()
+        return self.job_name
 
-        pass
+    def _create_job(self, path, name):
+        os.makedirs(path)
+        with open(os.path.join(path,"README.md"), "w") as f:
+            f.write(
+                f"""#{name}
+"""
+            )
 
     @staticmethod
     def _experiment_name(name):
@@ -140,3 +153,22 @@ class SimpleExperimentTracker:
     def _printable(name_string):
         s_ = "".join(s for s in name_string if s in string.printable)
         return s_
+
+    def dump(self, name=None):
+        if name is None:
+            name = "job.json"
+        with open(name, "w") as f:
+            json.dump(self._dict, f)
+
+    @classmethod
+    def from_json(cls, file_name):
+        with open(file_name, "r") as f:
+            d = json.load(f)
+        tracker = cls(
+            root_dir=d["root_dir"],
+            experiment_name=d["experiment_name"],
+            job_name=d["job_name"],
+        )
+        for key, val in d:
+            tracker[key] = val
+        return tracker
