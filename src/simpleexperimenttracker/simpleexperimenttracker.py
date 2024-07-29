@@ -1,9 +1,9 @@
-import wonderwords
 import datetime
+import os
 import random
 import string
-import os
 
+import wonderwords
 
 FAMOUS_SCIENTISTS = [
     # Female Scientists
@@ -17,7 +17,6 @@ FAMOUS_SCIENTISTS = [
     "Barbara McClintock",
     "Lise Meitner",
     "Vera Rubin",
-    
     # Male Scientists
     "Albert Einstein",
     "Isaac Newton",
@@ -29,7 +28,6 @@ FAMOUS_SCIENTISTS = [
     "Niels Bohr",
     "Michael Faraday",
     "Alan Turing",
-
     # Female Scientists
     "Hypatia",
     "Emmy Noether",
@@ -40,20 +38,20 @@ FAMOUS_SCIENTISTS = [
     "Rita Levi-Montalcini",
     "Gerty Cori",
     "Mary Anning",
-    "Irene Joliot-Curie", #Sorry Irène, for the accent
-    
+    "Irene Joliot-Curie",  # Sorry Irène, for the accent
     # Male Scientists
     "Gregor Mendel",
     "James Clerk Maxwell",
     "Louis Pasteur",
     "Carl Linnaeus",
-    "Erwin Schroedinger", # Sorry Erwin, for the ö
+    "Erwin Schroedinger",  # Sorry Erwin, for the ö
     "Paul Dirac",
     "Linus Pauling",
     "Carl Sagan",
     "Jonas Salk",
-    "Tim Berners-Lee"
+    "Tim Berners-Lee",
 ]
+
 
 class SimpleExperimentTracker:
     def __init__(self, root_dir=None, experiment_name=None, job_name=None):
@@ -77,14 +75,16 @@ class SimpleExperimentTracker:
         self._dict["root_dir"] = self.root_dir
         self._dict["job_name"] = self.job_name
         self._dict["experiment_name"] = self.experiment_name
-        
 
     def __setitem__(self, key, value):
         self._dict[key] = value
 
     def __getitem__(self, key):
-        return os.abspath(os.path.join(self.root_dir, self.experiment_name, self.job_name, self._dict[key]))
-        
+        return os.abspath(
+            os.path.join(
+                self.root_dir, self.experiment_name, self.job_name, self._dict[key]
+            )
+        )
 
     def set_experiment(self, name=None):
         name = self._experiment_name(name)
@@ -93,11 +93,11 @@ class SimpleExperimentTracker:
             os.makedirs(path)
         self.experiment_name = name
         self.update_dict()
-        
+
     def set_job(self, name=None):
         if self.experiment_name is None:
             raise ValueError("set experiment first")
-        name = self._job_name(name)    
+        name = self._job_name(name)
         path = os.path.join(self.root_dir, self.experiment_name, name)
         if not os.path.isdir(path):
             os.makedirs(path)
@@ -120,15 +120,23 @@ class SimpleExperimentTracker:
             date = now.split("T")[0]
 
             r = wonderwords.RandomWord()
-            adjective = r.word(include_parts_of_speech=["adjectives"], word_min_length=3, word_max_length=8)
+            adjective = r.word(
+                include_parts_of_speech=["adjectives"],
+                word_min_length=3,
+                word_max_length=8,
+            )
             length = 12 - len(adjective)
-            noun = r.word(include_parts_of_speech=["nouns"], word_min_length=length, word_max_length=length)
+            noun = r.word(
+                include_parts_of_speech=["nouns"],
+                word_min_length=length,
+                word_max_length=length,
+            )
             name = "_".join((date, adjective, noun))
 
         name = SimpleExperimentTracker._printable(name)
         return name
-        
+
     @staticmethod
     def _printable(name_string):
-        s_ = ''.join(s for s in name_string if s in string.printable)
+        s_ = "".join(s for s in name_string if s in string.printable)
         return s_
