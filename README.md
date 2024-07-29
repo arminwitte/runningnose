@@ -1,2 +1,2 @@
 # simpleexperimenttracker
-A simple tool to track experiments, jobs and the respective output
+A simple tool to create folders
