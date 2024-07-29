@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/simpleexperimenttracker
+      url: https://pypi.org/p/runningnose
     permissions:
       id-token: write
 
