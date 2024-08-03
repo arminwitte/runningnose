@@ -14,7 +14,7 @@ classifiers = [
 ]
 
 [project.urls]
-"homepage = "https://github.com/arminwitte/runningnose
+homepage = "https://github.com/arminwitte/runningnose"
 Issues = "https://github.com/arminwitte/runningnose/issues"
 
 [build-system]
