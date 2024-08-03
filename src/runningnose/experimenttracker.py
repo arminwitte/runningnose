@@ -123,7 +123,7 @@ class ExperimentTracker:
     def _experiment_name(name):
         if name is None:
             name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
-        name = SimpleExperimentTracker._printable(name)
+        name = ExperimentTracker._printable(name)
         return name
 
     @staticmethod
@@ -146,7 +146,7 @@ class ExperimentTracker:
             )
             name = "_".join((date, adjective, noun))
 
-        name = SimpleExperimentTracker._printable(name)
+        name = ExperimentTracker._printable(name)
         return name
 
     @staticmethod
