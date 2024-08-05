@@ -27,3 +27,22 @@ def test_experimenttracker_set_names():
     assert tracker.experiment_name == "exp"
     assert isinstance(tracker.job_name, str)
     assert tracker.job_name == "job"
+
+def test_experimenttracker_path_to():
+    tracker = ExperimentTracker(root_dir="tests/sandbox")
+    tracker.set_experiment("exp")
+    tracker.set_job("job")
+
+    # relative path
+    p = tracker.path_to("test", set_to="test")
+    assert os.path.isdir(p)
+    p = tracker.path_to("test")
+    assert os.path.isdir(p)
+    assert p[-4:] == "test"
+
+    # absolute path
+    pwd = os.getcwd()
+    p = tracker.path_to("read_me", set_to=os.path.join(pwd,"tests","sandbox","read_me.txt")
+    with open(p,"r") as f:
+        message = f.read()
+    assert message == ""
