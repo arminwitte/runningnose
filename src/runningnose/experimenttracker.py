@@ -132,7 +132,7 @@ class ExperimentTracker:
     def _experiment_name(name):
         if name is None:
             name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
-            id_ = uuid.uuid4()
+            id_ = str(uuid.uuid4())
             name = "_".join((name,id_[-8:]))
         name = ExperimentTracker._printable(name)
         return name
