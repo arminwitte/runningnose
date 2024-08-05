@@ -34,7 +34,7 @@ def test_experimenttracker_path_to():
     tracker.set_job("job")
 
     # relative path
-    p = tracker.path_to("test", set_to="test")
+    p = tracker.path_to("test", set_to="test", create_dir=True)
     assert os.path.isdir(p)
     p = tracker.path_to("test")
     assert os.path.isdir(p)
@@ -42,7 +42,8 @@ def test_experimenttracker_path_to():
 
     # absolute path
     pwd = os.getcwd()
-    p = tracker.path_to("read_me", set_to=os.path.join(pwd,"tests","sandbox","read_me.txt")
+    p = tracker.path_to("read_me", set_to=os.path.join(pwd,"tests","sandbox","read_me.txt"))
+    p = tracker.path_to("read_me")
     with open(p,"r") as f:
         message = f.read()
     assert message == ""
