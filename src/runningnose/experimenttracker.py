@@ -112,7 +112,7 @@ class ExperimentTracker:
         self.update_dict()
         return self.job_name
 
-    def path_to(key, set_to=None):
+    def path_to(self, key, set_to=None):
         if set_to is not None:
             self._dict[key] = set_to
         path = self._dict[key]
