@@ -4,6 +4,7 @@ import os
 import random
 import shutil
 import string
+import uuid
 
 import wonderwords
 
@@ -111,6 +112,14 @@ class ExperimentTracker:
         self.update_dict()
         return self.job_name
 
+    def path_to(key, set_to=None):
+        if set_to is not None:
+            self._dict[key] = set_to
+        path = self._dict[key]
+        if not os.path.isabs(path):
+            path = os.path.join(self.root_dir, self.experiment_name, self.job_name, path)
+        return os.path.abspath(path)
+
     def _create_job(self, path, name):
         os.makedirs(path)
         with open(os.path.join(path,"README.md"), "w") as f:
@@ -123,6 +132,8 @@ class ExperimentTracker:
     def _experiment_name(name):
         if name is None:
             name = random.choice(FAMOUS_SCIENTISTS).replace(" ", "_")
+            id_ = uuid.uuid4()
+            name = "_".join((name,id_[-8:]))
         name = ExperimentTracker._printable(name)
         return name
 
