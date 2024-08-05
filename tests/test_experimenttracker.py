@@ -48,4 +48,4 @@ def test_experimenttracker_path_to():
     p = tracker.path_to("read_me")
     with open(p,"r") as f:
         message = f.read()
-    assert message == ""
+    assert message == "The Answer to the Ultimate Question of Life, the Universe, and Everything is 42\n" 
