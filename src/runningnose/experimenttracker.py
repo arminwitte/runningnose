@@ -112,13 +112,16 @@ class ExperimentTracker:
         self.update_dict()
         return self.job_name
 
-    def path_to(self, key, set_to=None):
+    def path_to(self, key, set_to=None, create_dir=False):
         if set_to is not None:
             self._dict[key] = set_to
         path = self._dict[key]
         if not os.path.isabs(path):
             path = os.path.join(self.root_dir, self.experiment_name, self.job_name, path)
-        return os.path.abspath(path)
+        path = os.path.abspath(path)
+        if create_dir:
+            os.pos.makedirs(path)
+        return path
 
     def _create_job(self, path, name):
         os.makedirs(path)
