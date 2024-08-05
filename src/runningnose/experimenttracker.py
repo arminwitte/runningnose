@@ -120,7 +120,7 @@ class ExperimentTracker:
             path = os.path.join(self.root_dir, self.experiment_name, self.job_name, path)
         path = os.path.abspath(path)
         if create_dir:
-            os.pos.makedirs(path)
+            os.makedirs(path, exist_ok=True)
         return path
 
     def _create_job(self, path, name):
